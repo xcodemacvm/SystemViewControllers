@@ -26,7 +26,7 @@
                                     <segment title="Share"/>
                                     <segment title="Safari"/>
                                     <segment title="Camera"/>
-                                    <segment title="Safari"/>
+                                    <segment title="Email"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentedControlOptionTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="6Hs-80-neI"/>
@@ -52,7 +52,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1mm-mD-lOF" customClass="RoundButton" customModule="SystemViewControllers" customModuleProvider="target">
                                         <rect key="frame" x="78.5" y="0.0" width="79.5" height="30"/>
-                                        <state key="normal" title="Email"/>
+                                        <state key="normal" title="Safari"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -82,7 +82,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3r-aj-Kkt" customClass="RoundButton" customModule="SystemViewControllers" customModuleProvider="target">
                                         <rect key="frame" x="235.5" y="0.0" width="79.5" height="30"/>
-                                        <state key="normal" title="Safari"/>
+                                        <state key="normal" title="Email"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
