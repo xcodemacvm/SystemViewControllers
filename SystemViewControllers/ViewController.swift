@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBAction func segmentedControlOptionTapped(_ sender: UISegmentedControl) {
@@ -18,8 +19,39 @@ class ViewController: UIViewController {
             let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = sender
             present(activityViewController, animated: true, completion: nil)
-        case 1: print("Oi Safari!")
-        case 2: print("Oi Camera!")
+        case 1:
+            if let url = URL(string: "http://www.apple.com") {
+                let safariViewController = SFSafariViewController(url: url)
+                present(safariViewController, animated: true, completion: nil)
+            }
+        case 2:
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            
+            let alertController = UIAlertController(title: "Choose Image Source.", message: nil, preferredStyle: .actionSheet)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { action in
+                    imagePicker.sourceType = .camera
+                    self.present(imagePicker, animated: true, completion: nil)
+                    print("User selected camera action.") })
+                alertController.addAction(cameraAction)
+
+            }
+            
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let photoLibraryAction = UIAlertAction(title: "photo library", style: .default, handler: { action in
+                    imagePicker.sourceType = .photoLibrary
+                    self.present(imagePicker, animated: true, completion: nil)
+                    print("User selected Photo Library action.") })
+                alertController.addAction(photoLibraryAction)
+
+            }
+            
+            present(alertController, animated: true, completion: nil)
+        
         case 3: print("Oi Email")
         default: break
         }
