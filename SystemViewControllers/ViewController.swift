@@ -8,8 +8,9 @@
 
 import UIKit
 import SafariServices
+import MessageUI
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBAction func segmentedControlOptionTapped(_ sender: UISegmentedControl) {
@@ -31,14 +32,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let alertController = UIAlertController(title: "Choose Image Source.", message: nil, preferredStyle: .actionSheet)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alertController.addAction(cancelAction)
-
+            
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { action in
                     imagePicker.sourceType = .camera
                     self.present(imagePicker, animated: true, completion: nil)
                     print("User selected camera action.") })
                 alertController.addAction(cameraAction)
-
+                
             }
             
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -47,13 +48,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self.present(imagePicker, animated: true, completion: nil)
                     print("User selected Photo Library action.") })
                 alertController.addAction(photoLibraryAction)
-
+                
             }
             
             present(alertController, animated: true, completion: nil)
-        
+            
         case 3: print("Oi Email")
-        default: break
+            guard MFMailComposeViewController.canSendMail() else { return }
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.mailComposeDelegate = self
+            mailComposer.setToRecipients(["samplemail@apple.com"])
+            mailComposer.setSubject("Look at this subject!")
+            mailComposer.setMessageBody("This is the message! Congratulations dude! :)", isHTML: false)
+            present(mailComposer, animated: true, completion: nil)
+       default: break
         }
     }
     
@@ -68,6 +76,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.image = selectedImage
+            dismiss(animated: true, completion: nil)
+        }
+    }
 
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
